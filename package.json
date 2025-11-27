@@ -58,7 +58,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.39.3",
-    "file-type": "^16.5.4",
+    "file-type": "^21.1.1",
     "lucide-react": "^0.548.0",
     "mapbox-gl": "^3.15.0",
     "maplibre-gl": "^5.13.0",
