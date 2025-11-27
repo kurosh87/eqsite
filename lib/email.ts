@@ -1,16 +1,27 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy Resend client - only initialized when needed
+let _resend: Resend | null = null;
+
+function getResend(): Resend {
+  if (!_resend) {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error("RESEND_API_KEY environment variable is not set");
+    }
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 
 // Use Resend's test domain until you verify your own domain
-// To verify your domain, go to https://resend.com/domains
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Phenotype <onboarding@resend.dev>';
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'EQ Platform <onboarding@resend.dev>';
 
 export async function sendPasswordResetEmail(to: string, resetUrl: string, userName?: string) {
+  const resend = getResend();
   const { data, error } = await resend.emails.send({
     from: FROM_EMAIL,
     to,
-    subject: 'Reset Your Password - Phenotype',
+    subject: 'Reset Your Password - EQ Platform',
     html: `
       <!DOCTYPE html>
       <html>
@@ -20,7 +31,7 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string, userN
         </head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #6366f1; margin: 0;">Phenotype</h1>
+            <h1 style="color: #6366f1; margin: 0;">EQ Platform</h1>
           </div>
 
           <h2 style="color: #1f2937;">Reset Your Password</h2>
@@ -42,7 +53,7 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string, userN
           <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
 
           <p style="color: #9ca3af; font-size: 12px; text-align: center;">
-            &copy; ${new Date().getFullYear()} Phenotype. All rights reserved.
+            &copy; ${new Date().getFullYear()} EQ Platform. All rights reserved.
           </p>
         </body>
       </html>
@@ -58,10 +69,11 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string, userN
 }
 
 export async function sendWelcomeEmail(to: string, userName?: string) {
+  const resend = getResend();
   const { data, error } = await resend.emails.send({
     from: FROM_EMAIL,
     to,
-    subject: 'Welcome to Phenotype!',
+    subject: 'Welcome to EQ Platform!',
     html: `
       <!DOCTYPE html>
       <html>
@@ -71,31 +83,31 @@ export async function sendWelcomeEmail(to: string, userName?: string) {
         </head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #6366f1; margin: 0;">Phenotype</h1>
+            <h1 style="color: #6366f1; margin: 0;">EQ Platform</h1>
           </div>
 
           <h2 style="color: #1f2937;">Welcome${userName ? `, ${userName}` : ''}!</h2>
 
-          <p>Thank you for creating an account with Phenotype. You're now ready to discover your ancestral heritage through AI-powered phenotype analysis.</p>
+          <p>Thank you for joining EQ Platform. You're now ready to develop your emotional intelligence through assessments, games, and AI coaching.</p>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${process.env.BETTER_AUTH_URL || 'https://pheno-beta.vercel.app'}/dashboard" style="background-color: #6366f1; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block;">
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://eq-platform.app'}/dashboard" style="background-color: #6366f1; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block;">
               Get Started
             </a>
           </div>
 
           <h3 style="color: #1f2937;">What you can do:</h3>
           <ul style="color: #4b5563;">
-            <li>Upload a photo for instant phenotype analysis</li>
-            <li>Get detailed reports on your ancestral heritage</li>
-            <li>Save and compare your analyses</li>
-            <li>Access your account from any device</li>
+            <li>Take EQ assessments to understand your emotional strengths</li>
+            <li>Play interactive games to build emotional skills</li>
+            <li>Track your mood and journal your thoughts</li>
+            <li>Get personalized AI coaching and insights</li>
           </ul>
 
           <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
 
           <p style="color: #9ca3af; font-size: 12px; text-align: center;">
-            &copy; ${new Date().getFullYear()} Phenotype. All rights reserved.
+            &copy; ${new Date().getFullYear()} EQ Platform. All rights reserved.
           </p>
         </body>
       </html>
