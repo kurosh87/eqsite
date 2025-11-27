@@ -3,33 +3,35 @@ import { ToastProvider } from "@/components/toast-provider";
 import { AnalyticsProvider } from "@/components/analytics-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/components/language-provider";
+import { PWAProvider } from "@/components/pwa-provider";
 import { OrganizationSchema, WebApplicationSchema } from "@/components/structured-data";
 import type { Metadata, Viewport } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://phenotype.app";
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://eq-platform.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Phenotype - AI Ancestry & Heritage Analysis",
-    template: "%s | Phenotype",
+    default: "EQ Platform - Emotional Intelligence Development",
+    template: "%s | EQ Platform",
   },
   description:
-    "Discover your ancestral heritage through advanced AI facial analysis. Get detailed phenotype matching, ancestry composition, and genetic heritage insights.",
+    "Develop your emotional intelligence with personalized assessments, interactive games, AI coaching, and progress tracking. Master self-awareness, empathy, and social skills.",
   keywords: [
-    "ancestry",
-    "heritage",
-    "phenotype",
-    "AI analysis",
-    "facial analysis",
-    "genetic heritage",
-    "ethnicity",
-    "DNA",
-    "genealogy",
+    "emotional intelligence",
+    "EQ",
+    "EI",
+    "self-awareness",
+    "empathy",
+    "social skills",
+    "emotional quotient",
+    "personal development",
+    "soft skills",
+    "leadership",
   ],
-  authors: [{ name: "Phenotype" }],
-  creator: "Phenotype",
-  publisher: "Phenotype",
+  authors: [{ name: "EQ Platform" }],
+  creator: "EQ Platform",
+  publisher: "EQ Platform",
   formatDetection: {
     email: false,
     address: false,
@@ -39,24 +41,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Phenotype",
-    title: "Phenotype - AI Ancestry & Heritage Analysis",
+    siteName: "EQ Platform",
+    title: "EQ Platform - Emotional Intelligence Development",
     description:
-      "Discover your ancestral heritage through advanced AI facial analysis. Get detailed phenotype matching and genetic heritage insights.",
+      "Develop your emotional intelligence with personalized assessments, AI coaching, and interactive learning. Master the 5 domains of EQ.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Phenotype - AI Ancestry Analysis",
+        alt: "EQ Platform - Emotional Intelligence",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Phenotype - AI Ancestry & Heritage Analysis",
+    title: "EQ Platform - Emotional Intelligence Development",
     description:
-      "Discover your ancestral heritage through advanced AI facial analysis.",
+      "Develop your emotional intelligence with personalized assessments and AI coaching.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -72,12 +74,18 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    shortcut: "/icons/icon-192.png",
+    apple: "/icons/icon-192.png",
   },
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "EQ Platform",
+  },
 };
 
 export const viewport: Viewport = {
@@ -112,8 +120,10 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="light" defaultColorScheme="purple">
           <LanguageProvider>
             <AnalyticsProvider>
-              <ToastProvider />
-              {children}
+              <PWAProvider>
+                <ToastProvider />
+                {children}
+              </PWAProvider>
             </AnalyticsProvider>
           </LanguageProvider>
         </ThemeProvider>
