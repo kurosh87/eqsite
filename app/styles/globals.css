@@ -1,0 +1,457 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262 83% 58%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* RTL support */
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* RTL font adjustments for Arabic/Persian */
+  [dir="rtl"] body {
+    font-family: 'Noto Sans Arabic', 'Noto Sans', system-ui, sans-serif;
+    letter-spacing: 0;
+  }
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	scroll-behavior: smooth;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* RTL-aware icon spacing - use instead of mr-* for icons before text */
+  .icon-gap {
+    @apply me-2;
+  }
+
+  /* RTL-aware flex row */
+  .flex-row-rtl {
+    @apply flex flex-row;
+  }
+  [dir="rtl"] .flex-row-rtl {
+    @apply flex-row-reverse;
+  }
+
+  /* Flip icons that indicate direction in RTL */
+  [dir="rtl"] .rtl-flip {
+    transform: scaleX(-1);
+  }
+
+  /* Reset text alignment for specific elements in RTL */
+  [dir="rtl"] .rtl-text-left {
+    text-align: left;
+  }
+  [dir="rtl"] .rtl-text-right {
+    text-align: right;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+
+  .gradient-mesh {
+    background:
+      radial-gradient(at 0% 0%, hsla(262, 83%, 58%, 0.08) 0px, transparent 50%),
+      radial-gradient(at 50% 0%, hsla(217, 70%, 62%, 0.06) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(262, 83%, 58%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(262, 83%, 78%, 0.04) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(217, 70%, 72%, 0.03) 0px, transparent 50%);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .glass-card-dark {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px 0 rgba(var(--primary), 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px 10px rgba(var(--primary), 0.3);
+  }
+}
+
+/* Page transition wrapper */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+/* Staggered animation delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Animation utilities */
+@layer utilities {
+  .animate-slide-in-left {
+    animation: slideInFromLeft 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInFromRight 0.6s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Initial state for animations */
+  .animate-on-enter {
+    opacity: 0;
+  }
+
+  .animate-on-enter.visible {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+}
+
+/* Sign-in page animations */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideRightIn {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(0px);
+  }
+}
+
+@keyframes testimonialIn {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0px) scale(1);
+  }
+}
+
+/* Animation classes for sign-in page */
+.animate-element {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.6s ease-out forwards;
+}
+
+.animate-slide-right {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateX(30px);
+  animation: slideRightIn 0.8s ease-out forwards;
+}
+
+.animate-testimonial {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(20px) scale(0.95);
+  animation: testimonialIn 0.6s ease-out forwards;
+}
+
+/* Animation delays */
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+.animate-delay-600 { animation-delay: 600ms; }
+.animate-delay-700 { animation-delay: 700ms; }
+.animate-delay-800 { animation-delay: 800ms; }
+.animate-delay-900 { animation-delay: 900ms; }
+.animate-delay-1000 { animation-delay: 1000ms; }
+.animate-delay-1200 { animation-delay: 1200ms; }
+.animate-delay-1400 { animation-delay: 1400ms; }
+
+/* Custom checkbox for sign-in */
+.custom-checkbox {
+  @apply w-4 h-4 rounded border border-border bg-transparent appearance-none cursor-pointer;
+  @apply checked:bg-primary checked:border-primary;
+  position: relative;
+}
+
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Print Styles */
+@media print {
+  /* Hide navigation and non-essential elements */
+  header,
+  nav,
+  footer,
+  .print\\:hidden,
+  button:not(.print-show),
+  [data-radix-popper-content-wrapper] {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Cards should be visible */
+  .card,
+  [class*="Card"] {
+    border: 1px solid #e5e7eb !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  /* Map container adjustments */
+  .maplibregl-map {
+    height: 400px !important;
+  }
+
+  /* Ensure colors print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+  }
+
+  .avoid-break {
+    break-inside: avoid;
+  }
+
+  /* Typography for print */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  /* Table formatting */
+  table {
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid #e5e7eb;
+    padding: 8px;
+  }
+
+  /* Links */
+  a[href]:after {
+    content: none !important;
+  }
+
+  /* Ensure ancestry bars show colors */
+  [style*="background"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
