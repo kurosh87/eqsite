@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { neon } from "@neondatabase/serverless";
 import { createHash, randomBytes } from "crypto";
 import { checkRateLimit, passwordResetRateLimit } from "@/lib/rate-limit";
 import { sendPasswordResetEmail } from "@/lib/email";
-
-const connection = neon(process.env.DATABASE_URL!);
+import { rawQuery as connection } from "@/lib/database";
 
 export async function POST(request: NextRequest) {
   try {

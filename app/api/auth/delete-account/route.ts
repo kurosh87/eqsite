@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { neon } from "@neondatabase/serverless";
 import { compare } from "bcryptjs";
-
-const connection = neon(process.env.DATABASE_URL!);
+import { rawQuery as connection } from "@/lib/database";
 
 export async function POST(request: NextRequest) {
   try {

@@ -1,7 +1,6 @@
 import { MetadataRoute } from "next";
-import { neon } from "@neondatabase/serverless";
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://phenotype.app";
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://eq-platform.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
@@ -25,10 +24,46 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/phenotypes`,
+      url: `${baseUrl}/assessment`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/games`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/practice`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/mood`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/journal`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/challenges`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/certificates`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/privacy`,
@@ -44,29 +79,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Dynamic phenotype pages
-  let phenotypePages: MetadataRoute.Sitemap = [];
-
-  try {
-    if (process.env.DATABASE_URL) {
-      const connection = neon(process.env.DATABASE_URL);
-      const phenotypes = await connection`
-        SELECT id, created_at FROM phenotypes
-        WHERE embedding IS NOT NULL
-        ORDER BY created_at DESC
-        LIMIT 500
-      `;
-
-      phenotypePages = phenotypes.map((phenotype) => ({
-        url: `${baseUrl}/phenotypes/${phenotype.id as string}`,
-        lastModified: (phenotype.created_at as Date) || new Date(),
-        changeFrequency: "monthly" as const,
-        priority: 0.7,
-      }));
-    }
-  } catch (error) {
-    console.error("Error generating sitemap phenotypes:", error);
-  }
-
-  return [...staticPages, ...phenotypePages];
+  return staticPages;
 }

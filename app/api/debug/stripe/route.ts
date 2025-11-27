@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { stripe, isStripeConfigured } from "@/lib/stripe";
-import { neon } from "@neondatabase/serverless";
+import { rawQuery } from "@/lib/database";
 
 export async function GET() {
   const checks: Record<string, any> = {
@@ -15,8 +15,7 @@ export async function GET() {
 
   // Check if subscriptions table exists
   try {
-    const connection = neon(process.env.DATABASE_URL!);
-    const result = await connection`
+    const result = await rawQuery`
       SELECT EXISTS (
         SELECT FROM information_schema.tables
         WHERE table_name = 'subscriptions'

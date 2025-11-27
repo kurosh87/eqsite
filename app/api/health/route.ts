@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
-import { checkDatabaseHealth } from "@/lib/database";
+import { checkDatabaseHealth, rawQuery as connection } from "@/lib/database";
 import { validateEnvironment, featureFlags } from "@/lib/validate-env";
-import { neon } from "@neondatabase/serverless";
 import { checkEmbeddingServiceHealth } from "@/lib/embeddings";
-
-const connection = neon(process.env.DATABASE_URL!);
 const deploymentMeta = {
   gitCommit: process.env.VERCEL_GIT_COMMIT_SHA || "local-dev",
   deploymentId: process.env.VERCEL_DEPLOYMENT_ID || "local-dev",

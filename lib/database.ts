@@ -23,7 +23,8 @@ function getConnection(): NeonQueryFunction<false, false> {
 }
 
 // Tagged template function that lazily gets connection
-function connection(strings: TemplateStringsArray, ...values: unknown[]) {
+// Export this for API routes that need raw SQL queries
+export function rawQuery(strings: TemplateStringsArray, ...values: unknown[]) {
   return getConnection()(strings, ...values);
 }
 
@@ -66,7 +67,7 @@ export async function checkDatabaseHealth(): Promise<{
 }> {
   const startTime = Date.now();
   try {
-    await connection`SELECT 1 as status`;
+    await rawQuery`SELECT 1 as status`;
     const latency = Date.now() - startTime;
     return { healthy: true, latency };
   } catch (error: unknown) {

@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stackServerApp } from "@/app/stack";
-import { neon } from "@neondatabase/serverless";
 import { checkRateLimit, rateLimitResponse } from "@/lib/rate-limit";
 import { formatApiError, validateRequiredFields } from "@/lib/error-handler";
-
-const connection = neon(process.env.DATABASE_URL!);
+import { rawQuery as connection } from "@/lib/database";
 
 /**
  * User feedback endpoint
