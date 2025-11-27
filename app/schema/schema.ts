@@ -555,6 +555,52 @@ export const emotionCheckIns = pgTable(
 );
 
 // ============================================================================
+// JOURNAL ENTRIES
+// ============================================================================
+
+export const journalEntries = pgTable(
+  "journal_entries",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id").notNull(),
+    title: text("title"),
+    content: text("content").notNull(),
+    mood: text("mood"), // Optional mood tag
+    moodScore: integer("mood_score"), // 1-10 scale
+    emotions: jsonb("emotions").$type<string[]>(), // Related emotions
+    tags: jsonb("tags").$type<string[]>(), // User-defined tags
+    // Prompt that inspired this entry (if any)
+    promptId: uuid("prompt_id"),
+    promptText: text("prompt_text"),
+    // Privacy
+    isPrivate: boolean("is_private").default(true).notNull(),
+    // Metadata
+    wordCount: integer("word_count").default(0),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => new Date()),
+  },
+  (table) => [
+    index("journal_entries_user_idx").on(table.userId),
+    index("journal_entries_date_idx").on(table.createdAt),
+  ],
+);
+
+// Journal prompts library
+export const journalPrompts = pgTable("journal_prompts", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  category: text("category").notNull(), // 'reflection', 'gratitude', 'emotion', 'growth', 'relationship'
+  promptText: text("prompt_text").notNull(),
+  domainId: uuid("domain_id")
+    .references(() => eqDomains.id, { onDelete: "set null" }),
+  difficulty: text("difficulty").default("beginner"), // 'beginner', 'intermediate', 'advanced'
+  isActive: boolean("is_active").default(true).notNull(),
+  order: integer("order").default(0),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+// ============================================================================
 // PAYMENTS & SUBSCRIPTIONS (mostly unchanged)
 // ============================================================================
 

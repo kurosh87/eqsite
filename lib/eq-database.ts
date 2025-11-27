@@ -19,6 +19,8 @@ import {
   emotionCheckIns,
   learningContent,
   userLearningProgress,
+  journalEntries,
+  journalPrompts,
 } from "@/app/schema/schema";
 
 // ============================================================================

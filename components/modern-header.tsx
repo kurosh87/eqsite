@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Brain, LayoutDashboard, LogOut, Settings, Gamepad2, Target } from "lucide-react";
+import { Brain, LayoutDashboard, LogOut, Settings, Gamepad2, Target, Smile, BookOpen } from "lucide-react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { LanguageSelector } from "@/components/language-selector";
 import { useLanguage } from "@/components/language-provider";
@@ -68,6 +68,20 @@ export function ModernHeader({ user }: ModernHeaderProps) {
             >
               <Gamepad2 className="h-4 w-4" />
               {t.nav.games}
+            </Link>
+            <Link
+              href="/mood"
+              className="transition-colors hover:text-foreground/80 text-foreground/60 flex items-center gap-1"
+            >
+              <Smile className="h-4 w-4" />
+              Mood
+            </Link>
+            <Link
+              href="/journal"
+              className="transition-colors hover:text-foreground/80 text-foreground/60 flex items-center gap-1"
+            >
+              <BookOpen className="h-4 w-4" />
+              Journal
             </Link>
           </nav>
         )}
