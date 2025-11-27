@@ -1,7 +1,6 @@
 // Hindi translations
-import type { Translations } from "../types";
 
-export const hi: Translations = {
+export const hi = {
   common: {
     loading: "लोड हो रहा है...",
     error: "एक त्रुटि हुई",

@@ -1,7 +1,6 @@
 // Chinese (Simplified) translations
-import type { Translations } from "../types";
 
-export const zh: Translations = {
+export const zh = {
   common: {
     loading: "加载中...",
     error: "发生错误",

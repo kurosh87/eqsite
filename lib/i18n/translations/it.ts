@@ -1,7 +1,6 @@
 // Italian translations
-import type { Translations } from "../types";
 
-export const it: Translations = {
+export const it = {
   common: {
     loading: "Caricamento...",
     error: "Si è verificato un errore",

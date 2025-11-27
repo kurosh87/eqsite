@@ -1,7 +1,6 @@
 // Persian (Farsi) translations - RTL
-import type { Translations } from "../types";
 
-export const fa: Translations = {
+export const fa = {
   common: {
     loading: "در حال بارگذاری...",
     error: "خطایی رخ داد",

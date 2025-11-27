@@ -1,7 +1,6 @@
 // Korean translations
-import type { Translations } from "../types";
 
-export const ko: Translations = {
+export const ko = {
   common: {
     loading: "로딩 중...",
     error: "오류가 발생했습니다",

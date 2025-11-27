@@ -283,6 +283,10 @@ export interface Translations {
       locked: string;
       earned: string;
     };
+    explore: {
+      title: string;
+      subtitle: string;
+    };
   };
 
   games: {

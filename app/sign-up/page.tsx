@@ -6,7 +6,7 @@ import { authClient } from "@/lib/auth-client";
 import { useLanguage } from "@/components/language-provider";
 import { SignUpPage as SignUpPageComponent, Feature } from "@/components/ui/sign-up";
 import { toast } from "sonner";
-import { Shield, Globe, Clock } from "lucide-react";
+import { Shield, Brain, Trophy } from "lucide-react";
 
 export default function SignUpPage() {
   const { t } = useLanguage();
@@ -15,19 +15,19 @@ export default function SignUpPage() {
 
   const features: Feature[] = [
     {
-      icon: <Clock className="h-5 w-5 text-primary" />,
-      title: t.home.stats.instant,
-      description: t.home.stats.instantDesc
+      icon: <Brain className="h-5 w-5 text-primary" />,
+      title: "Discover Your EQ",
+      description: "Measure your emotional intelligence across 5 domains"
     },
     {
-      icon: <Globe className="h-5 w-5 text-primary" />,
-      title: t.home.stats.ethnicities,
-      description: t.home.stats.ethnicitiesDesc
+      icon: <Trophy className="h-5 w-5 text-primary" />,
+      title: "Track Progress",
+      description: "Monitor your growth with detailed insights"
     },
     {
       icon: <Shield className="h-5 w-5 text-primary" />,
-      title: t.home.features.privateTitle,
-      description: t.home.features.privateDesc.substring(0, 50) + "..."
+      title: "Private & Secure",
+      description: "Your data is always protected"
     },
   ];
 
@@ -57,10 +57,11 @@ export default function SignUpPage() {
         });
         setTimeout(() => router.push("/dashboard"), 500);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Sign up error:", err);
+      const errorMessage = err instanceof Error ? err.message : t.errors.generic;
       toast.error(t.common.error, {
-        description: err?.message || t.errors.generic,
+        description: errorMessage,
       });
     } finally {
       setLoading(false);
@@ -73,9 +74,10 @@ export default function SignUpPage() {
         provider: "google",
         callbackURL: "/dashboard",
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : t.errors.generic;
       toast.error(t.common.error, {
-        description: err?.message || t.errors.generic,
+        description: errorMessage,
       });
     }
   };

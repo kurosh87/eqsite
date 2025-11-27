@@ -1,7 +1,6 @@
 // Turkish translations
-import type { Translations } from "../types";
 
-export const tr: Translations = {
+export const tr = {
   common: {
     loading: "Yükleniyor...",
     error: "Bir hata oluştu",

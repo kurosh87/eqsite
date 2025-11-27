@@ -295,6 +295,10 @@ export const en: Translations = {
       locked: "Locked",
       earned: "Earned",
     },
+    explore: {
+      title: "Explore Learning",
+      subtitle: "Discover exercises, articles, and tips to improve your EQ",
+    },
   },
 
   games: {

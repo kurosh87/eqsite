@@ -1,13 +1,20 @@
 import { redirect } from "next/navigation";
 import { stackServerApp } from "@/app/stack";
 import type { Metadata } from "next";
-import { getUserAnalysisHistory } from "@/lib/database";
+import {
+  getUserStats,
+  getUserAssessments,
+  getUserBadges,
+  getTodaysChallenge,
+  hasCompletedTodaysChallenge,
+  getEqDomains,
+} from "@/lib/eq-database";
 import { DashboardContent } from "@/components/dashboard-content";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: "Dashboard - EQ Platform",
   description:
-    "View your phenotype analysis history, track your ancestry discoveries, and manage your account.",
+    "Track your emotional intelligence progress, view your EQ scores, badges, and continue improving.",
   robots: {
     index: false,
     follow: false,
@@ -24,16 +31,23 @@ export default async function DashboardPage() {
     redirect("/sign-in");
   }
 
-  const history = await getUserAnalysisHistory(user.id, 20);
+  // Fetch all dashboard data
+  const [stats, assessments, userBadges, domains, todaysChallenge] = await Promise.all([
+    getUserStats(user.id),
+    getUserAssessments(user.id, 5),
+    getUserBadges(user.id),
+    getEqDomains(),
+    getTodaysChallenge(),
+  ]);
 
-  const thisMonthCount = history.filter((h: any) => {
-    const date = new Date(h.createdAt);
-    const now = new Date();
-    return (
-      date.getMonth() === now.getMonth() &&
-      date.getFullYear() === now.getFullYear()
-    );
-  }).length;
+  // Check if today's challenge is completed
+  const challengeCompleted = todaysChallenge
+    ? await hasCompletedTodaysChallenge(user.id)
+    : false;
+
+  // Get the latest assessment with domain scores
+  const latestAssessment = assessments[0];
+  const latestDomainScores = latestAssessment?.assessment.domainScores as Record<string, number> | null;
 
   const userData = {
     displayName: user.displayName,
@@ -44,8 +58,13 @@ export default async function DashboardPage() {
   return (
     <DashboardContent
       user={userData}
-      history={history}
-      thisMonthCount={thisMonthCount}
+      stats={stats}
+      assessments={assessments}
+      userBadges={userBadges}
+      domains={domains}
+      latestDomainScores={latestDomainScores}
+      todaysChallenge={todaysChallenge}
+      challengeCompleted={challengeCompleted}
     />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Dna } from "lucide-react";
+import { Brain } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 
 export function Footer() {
@@ -16,9 +16,9 @@ export function Footer() {
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-                <Dna className="h-5 w-5 text-primary-foreground" />
+                <Brain className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-bold text-xl">Phenotype</span>
+              <span className="font-bold text-xl">EQ Platform</span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-sm">
               {t.footer.description}
@@ -30,13 +30,13 @@ export function Footer() {
             <h3 className="font-semibold mb-4">{t.footer.product}</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                  {t.nav.upload}
+                <Link href="/assessment" className="text-muted-foreground hover:text-foreground transition-colors">
+                  {t.nav.assessment}
                 </Link>
               </li>
               <li>
-                <Link href="/phenotypes" className="text-muted-foreground hover:text-foreground transition-colors">
-                  {t.nav.gallery}
+                <Link href="/games" className="text-muted-foreground hover:text-foreground transition-colors">
+                  {t.nav.games}
                 </Link>
               </li>
               <li>
@@ -71,7 +71,7 @@ export function Footer() {
             {t.footer.copyright.replace("2025", String(currentYear))}
           </p>
           <p className="text-xs text-muted-foreground">
-            Results are for entertainment purposes only. Not a substitute for DNA testing.
+            Assessments are for personal development. Not a clinical diagnostic tool.
           </p>
         </div>
       </div>

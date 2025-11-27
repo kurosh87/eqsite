@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LayoutDashboard, LogOut, Settings } from "lucide-react";
+import { Brain, LayoutDashboard, LogOut, Settings, Gamepad2, Target } from "lucide-react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { LanguageSelector } from "@/components/language-selector";
 import { useLanguage } from "@/components/language-provider";
@@ -38,11 +38,11 @@ export function ModernHeader({ user }: ModernHeaderProps) {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-lg">
-            P
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <Brain className="h-6 w-6" />
           </div>
           <span className="hidden font-bold text-xl sm:inline-block">
-            Phenotype
+            EQ Platform
           </span>
         </Link>
 
@@ -50,10 +50,11 @@ export function ModernHeader({ user }: ModernHeaderProps) {
         {user && (
           <nav aria-label={t.a11y.mainNavigation} className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link
-              href="/"
-              className="transition-colors hover:text-foreground/80 text-foreground"
+              href="/assessment"
+              className="transition-colors hover:text-foreground/80 text-foreground/60 flex items-center gap-1"
             >
-              {t.nav.upload}
+              <Target className="h-4 w-4" />
+              {t.nav.assessment}
             </Link>
             <Link
               href="/dashboard"
@@ -62,19 +63,12 @@ export function ModernHeader({ user }: ModernHeaderProps) {
               {t.nav.dashboard}
             </Link>
             <Link
-              href="/phenotypes"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
+              href="/games"
+              className="transition-colors hover:text-foreground/80 text-foreground/60 flex items-center gap-1"
             >
-              {t.nav.gallery}
+              <Gamepad2 className="h-4 w-4" />
+              {t.nav.games}
             </Link>
-            {user.isAdmin && (
-              <Link
-                href="/admin/phenotypes"
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                {t.nav.admin}
-              </Link>
-            )}
           </nav>
         )}
 

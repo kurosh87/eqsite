@@ -1,7 +1,6 @@
 // Russian translations
-import type { Translations } from "../types";
 
-export const ru: Translations = {
+export const ru = {
   common: {
     loading: "Загрузка...",
     error: "Произошла ошибка",

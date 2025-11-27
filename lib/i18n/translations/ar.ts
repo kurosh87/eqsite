@@ -1,7 +1,6 @@
 // Arabic translations
-import type { Translations } from "../types";
 
-export const ar: Translations = {
+export const ar = {
   common: {
     loading: "جارٍ التحميل...",
     error: "حدث خطأ",

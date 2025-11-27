@@ -1,7 +1,6 @@
 // Spanish translations
-import type { Translations } from "../types";
 
-export const es: Translations = {
+export const es = {
   common: {
     loading: "Cargando...",
     error: "Ocurrió un error",

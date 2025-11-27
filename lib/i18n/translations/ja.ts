@@ -1,7 +1,6 @@
 // Japanese translations
-import type { Translations } from "../types";
 
-export const ja: Translations = {
+export const ja = {
   common: {
     loading: "読み込み中...",
     error: "エラーが発生しました",
